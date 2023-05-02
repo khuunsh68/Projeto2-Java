@@ -7,7 +7,6 @@ package com.mycompany.jogogaloteste;
 //import java.awt.Color;
 //import javax.swing.JFrame;
 //import javax.swing.JOptionPane;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,20 +15,23 @@ import java.awt.*;
  * @author goncalo farias
  */
 public class JogoGaloTabuleiro extends javax.swing.JFrame {
+
     private JFrame frameMsg;
-    
+
     private String nome1;
     private String nome2;
     private final Jogadores jogadorX;
     private final Jogadores jogadorO;
-    
+
     private String startGame = "X";
     private int numJogos = 1;
     private int numEmpates = 0;
     private int numJogadas = 0;
     private boolean inGame = false;
+
     /**
      * Creates new form JogoGaloTabuleiro
+     *
      * @param nome1
      * @param nome2
      */
@@ -39,86 +41,78 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         this.jogadorO = new Jogadores(nome2);
         actualizarEstatisticas();
     }
-    
-    private void escolheJogador()
-    {
-        if(startGame.equalsIgnoreCase("x"))
-        {
+
+    private void escolheJogador() {
+        if (startGame.equalsIgnoreCase("x")) {
             startGame = "O";
-        } else
-        {
+        } else {
             startGame = "X";
         }
     }
-    
-    private void resetTabuleiro()
-    {
+
+    private void resetTabuleiro() {
         jBtn1.setText("");
         jBtn1.setEnabled(true);
         jBtn1.setBackground(null);
-        
+
         jBtn2.setText("");
         jBtn2.setEnabled(true);
         jBtn2.setBackground(null);
-        
+
         jBtn3.setText("");
         jBtn3.setEnabled(true);
         jBtn3.setBackground(null);
-        
+
         jBtn4.setText("");
         jBtn4.setEnabled(true);
         jBtn4.setBackground(null);
-        
+
         jBtn5.setText("");
         jBtn5.setEnabled(true);
         jBtn5.setBackground(null);
-        
+
         jBtn6.setText("");
         jBtn6.setEnabled(true);
         jBtn6.setBackground(null);
-        
+
         jBtn7.setText("");
         jBtn7.setEnabled(true);
         jBtn7.setBackground(null);
-        
+
         jBtn8.setText("");
         jBtn8.setEnabled(true);
         jBtn8.setBackground(null);
-        
+
         jBtn9.setText("");
         jBtn9.setEnabled(true);
         jBtn9.setBackground(null);
-        
-        numJogadas=0;
+
+        numJogadas = 0;
         numJogos++;
     }
-    
-    private void mudaBgVencedor( JButton btn1, JButton btn2, JButton btn3)
-    {
-        btn1.setBackground(new Color(153,255,153));
-        btn2.setBackground(new Color(153,255,153));
-        btn3.setBackground(new Color(153,255,153));
+
+    private void mudaBgVencedor(JButton btn1, JButton btn2, JButton btn3) {
+        btn1.setBackground(new Color(153, 255, 153));
+        btn2.setBackground(new Color(153, 255, 153));
+        btn3.setBackground(new Color(153, 255, 153));
     }
-    
-    private void actualizarEstatisticas()
-    {
-        //int totalJogos = jogadorX.getNumVitorias() + jogadorO.getNumVitorias() + numEmpates;
-        double percJogX = (jogadorX.getNumVitorias()*100)/numJogos;
-        double percJogO = (jogadorO.getNumVitorias()*100)/numJogos;
-        double percEmp = (numEmpates*100)/numJogos;
-                 
-        jLabelNomeJogX.setText(jogadorX.getNome()+": "+ jogadorX.getNumVitorias()
-            + String.format(" ( %.2f%% )", percJogX));
-        jLabelNomeJogO.setText(jogadorO.getNome()+": "+ jogadorO.getNumVitorias()
-            + String.format(" ( %.2f%% )", percJogO));
-        //jNumJogos.setText(String.valueOf(numJogos));
+
+    private void actualizarEstatisticas() {
+        double percJogX = 0.0;
+        double percJogO = 0.0;
+        double percEmp = 0.0;
+        if (numJogos != 0) {
+            percJogX = (jogadorX.getNumVitorias() * 100) / numJogos;
+            percJogO = (jogadorO.getNumVitorias() * 100) / numJogos;
+            percEmp = (numEmpates * 100) / numJogos;
+        }
+        jLabelNomeJogX.setText(jogadorX.getNome() + ": " + jogadorX.getNumVitorias() + String.format(" ( %.2f%% )", percJogX));
+        jLabelNomeJogO.setText(jogadorO.getNome() + ": " + jogadorO.getNumVitorias() + String.format(" ( %.2f%% )", percJogO));
         jNumJogos.setText(String.valueOf(numJogos));
-        jNumEmpates.setText(String.valueOf(numEmpates)
-            + String.format(" ( %.2f%% )", percEmp));
+        jNumEmpates.setText(String.valueOf(numEmpates) + String.format(" ( %.2f%% )", percEmp));
     }
-    
-    private void winGame()
-    {
+
+    private void winGame() {
         String b1 = jBtn1.getText();
         String b2 = jBtn2.getText();
         String b3 = jBtn3.getText();
@@ -128,14 +122,12 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         String b7 = jBtn7.getText();
         String b8 = jBtn8.getText();
         String b9 = jBtn9.getText();
-        
+
         //Color btnBorder = new Color(102,255,102);
         //Color btnBg = new Color(153,255,153);
         // = true;
-        
-        if ( numJogadas >= 9 )
-        {
-            JOptionPane.showMessageDialog(this, "Jogadores Empataram!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+        if (numJogadas >= 9) {
+            JOptionPane.showMessageDialog(this, "Jogadores Empataram!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             numEmpates++;
             actualizarEstatisticas();
             resetTabuleiro();
@@ -144,179 +136,160 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         /**
          * Jogadas Jogador X
          */
-        
-        if( b1 == ("X") && b2 == ("X") && b3 == ("X"))
-        {
+
+        if (b1 == ("X") && b2 == ("X") && b3 == ("X")) {
             //jBtn1.setBorder(BorderFactory.createLineBorder(btnBorder));
             //jBtn1.setBackground(btnBg);
             //jBtn2.setBorder(BorderFactory.createLineBorder(btnBorder));
             //jBtn2.setBackground(btnBg);
             //jBtn3.setBorder(BorderFactory.createLineBorder(btnBorder));
             //jBtn3.setBackground(btnBg);
-            mudaBgVencedor(jBtn1,jBtn2,jBtn3);
-            
-            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
-            
+            mudaBgVencedor(jBtn1, jBtn2, jBtn3);
+
+            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+
             jogadorX.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b4 == ("X") && b5 == ("X") && b6 == ("X"))
-        {
-            mudaBgVencedor(jBtn4,jBtn5,jBtn6);
-            
-            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
-            
+
+        if (b4 == ("X") && b5 == ("X") && b6 == ("X")) {
+            mudaBgVencedor(jBtn4, jBtn5, jBtn6);
+
+            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+
             jogadorX.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b7 == ("X") && b8 == ("X") && b9 == ("X"))
-        {
-            mudaBgVencedor(jBtn7,jBtn8,jBtn9);
-            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
-            
+
+        if (b7 == ("X") && b8 == ("X") && b9 == ("X")) {
+            mudaBgVencedor(jBtn7, jBtn8, jBtn9);
+            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+
             jogadorX.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b1 == ("X") && b4 == ("X") && b7 == ("X"))
-        {
-            mudaBgVencedor(jBtn1,jBtn4,jBtn7);
-            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b1 == ("X") && b4 == ("X") && b7 == ("X")) {
+            mudaBgVencedor(jBtn1, jBtn4, jBtn7);
+            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorX.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b2 == ("X") && b5 == ("X") && b8 == ("X"))
-        {
-            mudaBgVencedor(jBtn2,jBtn5,jBtn8);
-            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b2 == ("X") && b5 == ("X") && b8 == ("X")) {
+            mudaBgVencedor(jBtn2, jBtn5, jBtn8);
+            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorX.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b3 == ("X") && b6 == ("X") && b9 == ("X"))
-        {
-            mudaBgVencedor(jBtn3,jBtn6,jBtn9);
-            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b3 == ("X") && b6 == ("X") && b9 == ("X")) {
+            mudaBgVencedor(jBtn3, jBtn6, jBtn9);
+            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorX.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b2 == ("X") && b5 == ("X") && b8 == ("X"))
-        {
-            mudaBgVencedor(jBtn2,jBtn5,jBtn8);
-            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b2 == ("X") && b5 == ("X") && b8 == ("X")) {
+            mudaBgVencedor(jBtn2, jBtn5, jBtn8);
+            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorX.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b1 == ("X") && b5 == ("X") && b9 == ("X"))
-        {
-            mudaBgVencedor(jBtn1,jBtn5,jBtn9);
-            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b1 == ("X") && b5 == ("X") && b9 == ("X")) {
+            mudaBgVencedor(jBtn1, jBtn5, jBtn9);
+            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorX.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b3 == ("X") && b5 == ("X") && b7 == ("X"))
-        {
-            mudaBgVencedor(jBtn3,jBtn5,jBtn7);
-            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b3 == ("X") && b5 == ("X") && b7 == ("X")) {
+            mudaBgVencedor(jBtn3, jBtn5, jBtn7);
+            JOptionPane.showMessageDialog(this, "Jogador X Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorX.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
+
         /**
          * Jogadas Jogador O
          */
-        
-        if( b1 == ("O") && b2 == ("O") && b3 == ("O"))
-        {
-            mudaBgVencedor(jBtn1,jBtn2,jBtn3);
-            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+        if (b1 == ("O") && b2 == ("O") && b3 == ("O")) {
+            mudaBgVencedor(jBtn1, jBtn2, jBtn3);
+            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorO.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b4 == ("O") && b5 == ("O") && b6 == ("O"))
-        {
-            mudaBgVencedor(jBtn4,jBtn5,jBtn6);
-            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b4 == ("O") && b5 == ("O") && b6 == ("O")) {
+            mudaBgVencedor(jBtn4, jBtn5, jBtn6);
+            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorO.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b7 == ("O") && b8 == ("O") && b9 == ("O"))
-        {
-            mudaBgVencedor(jBtn7,jBtn8,jBtn9);
-            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b7 == ("O") && b8 == ("O") && b9 == ("O")) {
+            mudaBgVencedor(jBtn7, jBtn8, jBtn9);
+            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorO.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b1 == ("O") && b4 == ("O") && b7 == ("O"))
-        {
-            mudaBgVencedor(jBtn1,jBtn4,jBtn7);
-            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b1 == ("O") && b4 == ("O") && b7 == ("O")) {
+            mudaBgVencedor(jBtn1, jBtn4, jBtn7);
+            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorO.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b2 == ("O") && b5 == ("O") && b8 == ("O"))
-        {
-            mudaBgVencedor(jBtn2,jBtn5,jBtn8);
-            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b2 == ("O") && b5 == ("O") && b8 == ("O")) {
+            mudaBgVencedor(jBtn2, jBtn5, jBtn8);
+            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorO.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b3 == ("O") && b6 == ("O") && b9 == ("O"))
-        {
-            mudaBgVencedor(jBtn3,jBtn6,jBtn9);
-            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b3 == ("O") && b6 == ("O") && b9 == ("O")) {
+            mudaBgVencedor(jBtn3, jBtn6, jBtn9);
+            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorO.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b2 == ("O") && b5 == ("O") && b8 == ("O"))
-        {
-            mudaBgVencedor(jBtn2,jBtn5,jBtn8);
-            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b2 == ("O") && b5 == ("O") && b8 == ("O")) {
+            mudaBgVencedor(jBtn2, jBtn5, jBtn8);
+            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorO.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b1 == ("O") && b5 == ("O") && b9 == ("O"))
-        {
-            mudaBgVencedor(jBtn1,jBtn5,jBtn9);
-            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b1 == ("O") && b5 == ("O") && b9 == ("O")) {
+            mudaBgVencedor(jBtn1, jBtn5, jBtn9);
+            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorO.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
         }
-        
-        if( b3 == ("O") && b5 == ("O") && b7 == ("O"))
-        {
-            mudaBgVencedor(jBtn3,jBtn5,jBtn7);
-            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo",JOptionPane.INFORMATION_MESSAGE);
+
+        if (b3 == ("O") && b5 == ("O") && b7 == ("O")) {
+            mudaBgVencedor(jBtn3, jBtn5, jBtn7);
+            JOptionPane.showMessageDialog(this, "Jogador O Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             jogadorO.addVitoria();
             actualizarEstatisticas();
             resetTabuleiro();
@@ -633,7 +606,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         //jBtn1.setBackground(Color.red);
         jBtn1.setEnabled(false);
         numJogadas++;
-        
+
         escolheJogador();
         winGame();
     }//GEN-LAST:event_jBtn1ActionPerformed
@@ -642,7 +615,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jBtn9.setText(startGame);
         jBtn9.setEnabled(false);
         numJogadas++;
-   
+
         escolheJogador();
         winGame();
     }//GEN-LAST:event_jBtn9ActionPerformed
@@ -651,7 +624,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jBtn2.setText(startGame);
         jBtn2.setEnabled(false);
         numJogadas++;
-        
+
         escolheJogador();
         winGame();
     }//GEN-LAST:event_jBtn2ActionPerformed
@@ -660,7 +633,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jBtn4.setText(startGame);
         jBtn4.setEnabled(false);
         numJogadas++;
-        
+
         escolheJogador();
         winGame();
     }//GEN-LAST:event_jBtn4ActionPerformed
@@ -669,7 +642,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jBtn5.setText(startGame);
         jBtn5.setEnabled(false);
         numJogadas++;
-        
+
         escolheJogador();
         winGame();
     }//GEN-LAST:event_jBtn5ActionPerformed
@@ -678,7 +651,6 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jBtn6.setText(startGame);
         jBtn6.setEnabled(false);
         numJogadas++;
-        
 
         escolheJogador();
         winGame();
@@ -688,7 +660,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jBtn7.setText(startGame);
         jBtn7.setEnabled(false);
         numJogadas++;
-        
+
         escolheJogador();
         winGame();
     }//GEN-LAST:event_jBtn7ActionPerformed
@@ -697,7 +669,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jBtn8.setText(startGame);
         jBtn8.setEnabled(false);
         numJogadas++;
-        
+
         escolheJogador();
         winGame();
     }//GEN-LAST:event_jBtn8ActionPerformed
@@ -706,15 +678,14 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jBtn3.setText(startGame);
         jBtn3.setEnabled(false);
         numJogadas++;
-        
+
         escolheJogador();
         winGame();
     }//GEN-LAST:event_jBtn3ActionPerformed
 
     private void jBtnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSairActionPerformed
         frameMsg = new JFrame("Sair");
-        if(JOptionPane.showConfirmDialog(frameMsg, "Quer mesmo sair do jogo ?", "Jogo do Galo", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
-        {
+        if (JOptionPane.showConfirmDialog(frameMsg, "Quer mesmo sair do jogo ?", "Jogo do Galo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
             System.exit(0);
         }
     }//GEN-LAST:event_jBtnSairActionPerformed
@@ -725,8 +696,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
 
     private void jBtnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnNovoActionPerformed
         frameMsg = new JFrame("Novo Jogo");
-        if(JOptionPane.showConfirmDialog(frameMsg, "Quer mesmo criar novo jogo ?", "Jogo do Galo", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
-        {
+        if (JOptionPane.showConfirmDialog(frameMsg, "Quer mesmo criar novo jogo ?", "Jogo do Galo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
             numEmpates = 0;
             numJogos = 0;
             jogadorX.resetVitorias();
@@ -766,7 +736,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JogoGaloTabuleiro("","").setVisible(true);
+                new JogoGaloTabuleiro("", "").setVisible(true);
             }
         });
     }
