@@ -4,6 +4,7 @@
  */
 package com.mycompany.jogogaloteste;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -42,10 +43,10 @@ public class JogoGaloNomes extends javax.swing.JFrame {
         jLabel1.setText("Nomes dos Jogadores");
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel2.setText("Nome Jogador 1:");
+        jLabel2.setText("Nome Jogador X:");
 
         jLabel3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel3.setText("Nome Jogador 2:");
+        jLabel3.setText("Nome Jogador O:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,11 +73,11 @@ public class JogoGaloNomes extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 69, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -105,12 +106,22 @@ public class JogoGaloNomes extends javax.swing.JFrame {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
+        jLabel2.getAccessibleContext().setAccessibleName("Nome Jogador X:");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nome1= jTextField2.getText();
         String nome2 = jTextField1.getText();
+        
+        // Validação do campo nome
+        if(nome1.isEmpty() || nome2.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira os nomes de ambos os jogadores.");
+            return;
+        }
+        
+        // Os dois nomes foram introduzidos, logo avança para próximo form
         JogoGaloTabuleiro tabuleiro = new JogoGaloTabuleiro(nome1, nome2);
         tabuleiro.setVisible(true);
         dispose(); // Fecha o form anterior de maneira a haver só um form aberto

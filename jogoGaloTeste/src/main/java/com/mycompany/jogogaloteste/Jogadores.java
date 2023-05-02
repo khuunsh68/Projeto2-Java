@@ -11,28 +11,36 @@ import java.io.*;
  * @author goncalo farias
  */
 public class Jogadores implements Serializable {
-    private String nome1;
-    private String nome2;
+    private String nome;
+    private int vitorias;
+    private int derrotas;
 
-    public Jogadores(String nome1, String nome2) {
-        this.nome1 = nome1;
-        this.nome2 = nome2;
+    public Jogadores(String nome) {
+        this.nome = nome;
+        this.vitorias = 0;
+        this.derrotas = 0;
     }
 
-    public String getNome1() {
-        return nome1;
+    public String getNome() {
+        return this.nome;
     }
 
-    public void setNome1(String nome1) {
-        this.nome1 = nome1;
-    }
-
-    public String getNome2() {
-        return nome2;
-    }
-
-    public void setNome2(String nome2) {
-        this.nome2 = nome2;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
+    public void addVitoria()
+    {
+        this.vitorias++;
+    }
+    
+    public void resetVitorias()
+    {
+        this.vitorias = 0;
+    }
+    
+    public int getNumVitorias()
+    {
+        return this.vitorias;
+    }
 }
