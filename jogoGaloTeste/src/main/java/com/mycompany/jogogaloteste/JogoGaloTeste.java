@@ -5,8 +5,9 @@
 package com.mycompany.jogogaloteste;
 
 /**
- *
  * @author goncalo farias
+ * @author Ivo Silva
+ * @date 2021/06/13
  */
 public class JogoGaloTeste {
 
