@@ -24,7 +24,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     private final Jogadores jogadorX;
     private final Jogadores jogadorO;
 
-    private String startGame = "X";
+    private String jogadorAtual = "X";
     private int numJogos = 1;
     private int numEmpates = 0;
     private int numJogadas = 0;
@@ -47,10 +47,10 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
      * Alternar entre jogadores
      */
     private void escolheJogador() {
-        if (startGame.equalsIgnoreCase("x")) {
-            startGame = "O";
+        if (jogadorAtual.equalsIgnoreCase("x")) {
+            jogadorAtual = "O";
         } else {
-            startGame = "X";
+            jogadorAtual = "X";
         }
     }
 
@@ -128,7 +128,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     /**
      * Verifica se houve um vencedor na jogada
      */
-    private void winGame() {
+    private void old_winGame() {
         String b1 = jBtn1.getText();
         String b2 = jBtn2.getText();
         String b3 = jBtn3.getText();
@@ -298,7 +298,111 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
             resetTabuleiro();
         }
     }
-    
+        /**
+     * Verifica se houve um vencedor na jogada
+     */
+    private void winGame() {
+        String b1 = jBtn1.getText();
+        String b2 = jBtn2.getText();
+        String b3 = jBtn3.getText();
+        String b4 = jBtn4.getText();
+        String b5 = jBtn5.getText();
+        String b6 = jBtn6.getText();
+        String b7 = jBtn7.getText();
+        String b8 = jBtn8.getText();
+        String b9 = jBtn9.getText();
+
+        //Color btnBorder = new Color(102,255,102);
+        //Color btnBg = new Color(153,255,153);
+        // = true;
+        /**
+         * Se não houver mais jogadas disponiveis, o jogo acaba em empate
+         */
+        if (numJogadas >= 9) {
+            JOptionPane.showMessageDialog(this, "Jogadores Empataram!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+            numEmpates++;
+            actualizarEstatisticas();
+            resetTabuleiro();
+            return;
+        }
+        /**
+         * Jogadas Jogador X
+         */
+        
+        if (!b1.isEmpty()) {
+            if (b1.equals(b2) && b2.equals(b3)) {
+                mudaBgVencedor(jBtn1, jBtn2, jBtn3);
+                JOptionPane.showMessageDialog(this, "Jogador "+b1+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);               
+                (b1.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria();             
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+
+            if (b1.equals(b5) && b5.equals(b9)) {
+                mudaBgVencedor(jBtn1, jBtn5, jBtn9);
+                JOptionPane.showMessageDialog(this, "Jogador "+b1+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b1.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+
+            if (b1.equals(b4) && b4.equals(b7)) {
+                mudaBgVencedor(jBtn1, jBtn4, jBtn7);
+                JOptionPane.showMessageDialog(this, "Jogador "+b1+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b1.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }           
+        }
+        
+        if (!b5.isEmpty()) {
+            if (b5.equals(b4) && b5.equals(b6)) {
+                mudaBgVencedor(jBtn4, jBtn5, jBtn6);
+
+                JOptionPane.showMessageDialog(this, "Jogador "+b4+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+
+                (b5.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+
+            if (b5.equals(b2) && b5.equals(b8)) {
+                mudaBgVencedor(jBtn2, jBtn5, jBtn8);
+                JOptionPane.showMessageDialog(this, "Jogador "+b2+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b5.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+
+            if (b5.equals(b3) && b5.equals(b7)) {
+                mudaBgVencedor(jBtn3, jBtn5, jBtn7);
+                JOptionPane.showMessageDialog(this, "Jogador "+b3+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b5.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }           
+        }
+        
+        if (!b7.isEmpty()) {
+            if (b7.equals(b8) && b8.equals(b9)) {
+               mudaBgVencedor(jBtn7, jBtn8, jBtn9);
+               JOptionPane.showMessageDialog(this, "Jogador "+b7+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+               (b7.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
+               actualizarEstatisticas();
+               resetTabuleiro();
+            }
+        }
+        
+        if (!b3.isEmpty()) {
+            if (b3.equals(b6) && b6.equals(b9)) {
+                mudaBgVencedor(jBtn3, jBtn6, jBtn9);
+                JOptionPane.showMessageDialog(this, "Jogador "+b3+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b3.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+        }
+    }
     /*
     private void winGame()
     {
@@ -650,7 +754,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn1ActionPerformed
-        jBtn1.setText(startGame);
+        jBtn1.setText(jogadorAtual);
         //jBtn1.setBackground(Color.red);
         jBtn1.setEnabled(false);
         numJogadas++;
@@ -660,7 +764,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtn1ActionPerformed
 
     private void jBtn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn9ActionPerformed
-        jBtn9.setText(startGame);
+        jBtn9.setText(jogadorAtual);
         jBtn9.setEnabled(false);
         numJogadas++;
 
@@ -669,7 +773,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtn9ActionPerformed
 
     private void jBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn2ActionPerformed
-        jBtn2.setText(startGame);
+        jBtn2.setText(jogadorAtual);
         jBtn2.setEnabled(false);
         numJogadas++;
 
@@ -678,7 +782,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtn2ActionPerformed
 
     private void jBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn4ActionPerformed
-        jBtn4.setText(startGame);
+        jBtn4.setText(jogadorAtual);
         jBtn4.setEnabled(false);
         numJogadas++;
 
@@ -687,7 +791,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtn4ActionPerformed
 
     private void jBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn5ActionPerformed
-        jBtn5.setText(startGame);
+        jBtn5.setText(jogadorAtual);
         jBtn5.setEnabled(false);
         numJogadas++;
 
@@ -696,7 +800,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtn5ActionPerformed
 
     private void jBtn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn6ActionPerformed
-        jBtn6.setText(startGame);
+        jBtn6.setText(jogadorAtual);
         jBtn6.setEnabled(false);
         numJogadas++;
 
@@ -705,7 +809,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtn6ActionPerformed
 
     private void jBtn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn7ActionPerformed
-        jBtn7.setText(startGame);
+        jBtn7.setText(jogadorAtual);
         jBtn7.setEnabled(false);
         numJogadas++;
 
@@ -714,7 +818,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtn7ActionPerformed
 
     private void jBtn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn8ActionPerformed
-        jBtn8.setText(startGame);
+        jBtn8.setText(jogadorAtual);
         jBtn8.setEnabled(false);
         numJogadas++;
 
@@ -723,7 +827,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtn8ActionPerformed
 
     private void jBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn3ActionPerformed
-        jBtn3.setText(startGame);
+        jBtn3.setText(jogadorAtual);
         jBtn3.setEnabled(false);
         numJogadas++;
 
