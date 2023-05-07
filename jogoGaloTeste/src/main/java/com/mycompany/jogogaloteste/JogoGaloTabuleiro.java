@@ -22,7 +22,6 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
 
     private String nome1;
     private String nome2;
-    private String primeiroJogador;
     private final Jogadores jogadorX;
     private final Jogadores jogadorO;
 
@@ -30,7 +29,6 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     private int numJogos = 1;
     private int numEmpates = 0;
     private int numJogadas = 0;
-    private final boolean inGame = false;
 
     /**
      * Creates new form JogoGaloTabuleiro
@@ -43,24 +41,29 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         initComponents();
         this.jogadorX = new Jogadores(nome1);
         this.jogadorO = new Jogadores(nome2);
-        jogadorAtual = primeiroJogador;
-        setVisible(true); // Este servivible serve para mostrar a informaçao de jogador a jogar só depois do form aberto
+        this.jogadorAtual = primeiroJogador;
+        setVisible(true); // Este setVisible serve para mostrar a informaçao de jogador a jogar só depois do form aberto
         actualizarEstatisticas();
+        msgJogadorActual(); // Print do jogador a jogar no form em si
         mostrarJogadorAtual(); // Alerta com vez de quem vai jogar primeiro
-        escolheJogador(); // Print do jogador a jogar no form em si
+
     }
 
     /**
      * Alternar entre jogadores
      */
+    private void msgJogadorActual()
+    {
+        jLabelJogActual.setText("Vez do jogador " + jogadorAtual);
+    }
     private void escolheJogador() {
         if (jogadorAtual.equalsIgnoreCase("x")) {
             jogadorAtual = "O";
-            jLabel1.setText("Vez do jogador 0");
         } else {
             jogadorAtual = "X";
-            jLabel1.setText("Vez do jogador X");
         }
+        
+        msgJogadorActual();
     }
 
     /**
@@ -328,16 +331,14 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         /**
          * Se não houver mais jogadas disponiveis, o jogo acaba em empate
          */
-//        if (numJogadas >= 9) {
-//            JOptionPane.showMessageDialog(this, "Jogadores Empataram!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
-//            numEmpates++;
-//            actualizarEstatisticas();
-//            resetTabuleiro();
-//            return;
-//        }
-        /**
-         * Jogadas Jogador X
-         */
+        //        if (numJogadas >= 9) {
+        //            JOptionPane.showMessageDialog(this, "Jogadores Empataram!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+        //            numEmpates++;
+        //            actualizarEstatisticas();
+        //            resetTabuleiro();
+        //            return;
+        //        }
+
         if (!b1.isEmpty()) {
             if (b1.equals(b2) && b2.equals(b3)) {
                 mudaBgVencedor(jBtn1, jBtn2, jBtn3);
@@ -505,7 +506,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jLabelNomeJogO = new javax.swing.JLabel();
         jContainerTitulo = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelJogActual = new javax.swing.JLabel();
         jContainerMenu = new javax.swing.JPanel();
         jBtnSair = new javax.swing.JButton();
         jBtnNovo = new javax.swing.JButton();
@@ -689,7 +690,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
         jLabelTitulo.setText("Jogo do Galo");
 
-        jLabel1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabelJogActual.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jContainerTituloLayout = new javax.swing.GroupLayout(jContainerTitulo);
         jContainerTitulo.setLayout(jContainerTituloLayout);
@@ -701,7 +702,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jContainerTituloLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelJogActual, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(255, 255, 255))
         );
         jContainerTituloLayout.setVerticalGroup(
@@ -710,7 +711,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabelTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(jLabelJogActual)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -937,7 +938,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     private javax.swing.JPanel jContainerEstatisticas;
     private javax.swing.JPanel jContainerMenu;
     private javax.swing.JPanel jContainerTitulo;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelJogActual;
     private javax.swing.JLabel jLabelNomeJogO;
     private javax.swing.JLabel jLabelNomeJogX;
     private javax.swing.JLabel jLabelNumEmp;
