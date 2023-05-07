@@ -9,6 +9,7 @@ package com.mycompany.jogogaloteste;
 //import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 /**
  * @author goncalo farias
@@ -21,10 +22,11 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
 
     private String nome1;
     private String nome2;
+    private String primeiroJogador;
     private final Jogadores jogadorX;
     private final Jogadores jogadorO;
 
-    private String jogadorAtual = "X";
+    private String jogadorAtual;
     private int numJogos = 1;
     private int numEmpates = 0;
     private int numJogadas = 0;
@@ -35,12 +37,17 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
      *
      * @param nome1 Nome do jogador X
      * @param nome2 Nome do jogador O
+     * @param primeiroJogador Nome do primeiro Jogador a jogar
      */
-    public JogoGaloTabuleiro(String nome1, String nome2) {
+    public JogoGaloTabuleiro(String nome1, String nome2, String primeiroJogador) {
         initComponents();
         this.jogadorX = new Jogadores(nome1);
         this.jogadorO = new Jogadores(nome2);
+        jogadorAtual = primeiroJogador;
+        setVisible(true); // Este servivible serve para mostrar a informaçao de jogador a jogar só depois do form aberto
         actualizarEstatisticas();
+        mostrarJogadorAtual(); // Alerta com vez de quem vai jogar primeiro
+        escolheJogador(); // Print do jogador a jogar no form em si
     }
 
     /**
@@ -49,8 +56,10 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     private void escolheJogador() {
         if (jogadorAtual.equalsIgnoreCase("x")) {
             jogadorAtual = "O";
+            jLabel1.setText("Vez do jogador 0");
         } else {
             jogadorAtual = "X";
+            jLabel1.setText("Vez do jogador X");
         }
     }
 
@@ -156,7 +165,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
          * Jogadas Jogador X
          */
 
-        if (b1.equalsIgnoreCase("X")&& b2.equalsIgnoreCase("X") && b3.equalsIgnoreCase("X")) {
+        if (b1.equalsIgnoreCase("X") && b2.equalsIgnoreCase("X") && b3.equalsIgnoreCase("X")) {
             //jBtn1.setBorder(BorderFactory.createLineBorder(btnBorder));
             //jBtn1.setBackground(btnBg);
             //jBtn2.setBorder(BorderFactory.createLineBorder(btnBorder));
@@ -298,7 +307,8 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
             resetTabuleiro();
         }
     }
-        /**
+
+    /**
      * Verifica se houve um vencedor na jogada
      */
     private void winGame() {
@@ -318,6 +328,90 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         /**
          * Se não houver mais jogadas disponiveis, o jogo acaba em empate
          */
+//        if (numJogadas >= 9) {
+//            JOptionPane.showMessageDialog(this, "Jogadores Empataram!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+//            numEmpates++;
+//            actualizarEstatisticas();
+//            resetTabuleiro();
+//            return;
+//        }
+        /**
+         * Jogadas Jogador X
+         */
+        if (!b1.isEmpty()) {
+            if (b1.equals(b2) && b2.equals(b3)) {
+                mudaBgVencedor(jBtn1, jBtn2, jBtn3);
+                JOptionPane.showMessageDialog(this, "Jogador " + b1 + " Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b1.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria();
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+
+            if (b1.equals(b5) && b5.equals(b9)) {
+                mudaBgVencedor(jBtn1, jBtn5, jBtn9);
+                JOptionPane.showMessageDialog(this, "Jogador " + b1 + " Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b1.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria();
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+
+            if (b1.equals(b4) && b4.equals(b7)) {
+                mudaBgVencedor(jBtn1, jBtn4, jBtn7);
+                JOptionPane.showMessageDialog(this, "Jogador " + b1 + " Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b1.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria();
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+        }
+
+        if (!b5.isEmpty()) {
+            if (b5.equals(b4) && b5.equals(b6)) {
+                mudaBgVencedor(jBtn4, jBtn5, jBtn6);
+
+                JOptionPane.showMessageDialog(this, "Jogador " + b4 + " Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+
+                (b5.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria();
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+
+            if (b5.equals(b2) && b5.equals(b8)) {
+                mudaBgVencedor(jBtn2, jBtn5, jBtn8);
+                JOptionPane.showMessageDialog(this, "Jogador " + b2 + " Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b5.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria();
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+
+            if (b5.equals(b3) && b5.equals(b7)) {
+                mudaBgVencedor(jBtn3, jBtn5, jBtn7);
+                JOptionPane.showMessageDialog(this, "Jogador " + b3 + " Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b5.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria();
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+        }
+
+        if (!b7.isEmpty()) {
+            if (b7.equals(b8) && b8.equals(b9)) {
+                mudaBgVencedor(jBtn7, jBtn8, jBtn9);
+                JOptionPane.showMessageDialog(this, "Jogador " + b7 + " Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b7.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria();
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+        }
+
+        if (!b3.isEmpty()) {
+            if (b3.equals(b6) && b6.equals(b9)) {
+                mudaBgVencedor(jBtn3, jBtn6, jBtn9);
+                JOptionPane.showMessageDialog(this, "Jogador " + b3 + " Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+                (b3.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria();
+                actualizarEstatisticas();
+                resetTabuleiro();
+            }
+        }
+
         if (numJogadas >= 9) {
             JOptionPane.showMessageDialog(this, "Jogadores Empataram!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
             numEmpates++;
@@ -325,84 +419,8 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
             resetTabuleiro();
             return;
         }
-        /**
-         * Jogadas Jogador X
-         */
-        
-        if (!b1.isEmpty()) {
-            if (b1.equals(b2) && b2.equals(b3)) {
-                mudaBgVencedor(jBtn1, jBtn2, jBtn3);
-                JOptionPane.showMessageDialog(this, "Jogador "+b1+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);               
-                (b1.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria();             
-                actualizarEstatisticas();
-                resetTabuleiro();
-            }
-
-            if (b1.equals(b5) && b5.equals(b9)) {
-                mudaBgVencedor(jBtn1, jBtn5, jBtn9);
-                JOptionPane.showMessageDialog(this, "Jogador "+b1+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
-                (b1.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
-                actualizarEstatisticas();
-                resetTabuleiro();
-            }
-
-            if (b1.equals(b4) && b4.equals(b7)) {
-                mudaBgVencedor(jBtn1, jBtn4, jBtn7);
-                JOptionPane.showMessageDialog(this, "Jogador "+b1+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
-                (b1.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
-                actualizarEstatisticas();
-                resetTabuleiro();
-            }           
-        }
-        
-        if (!b5.isEmpty()) {
-            if (b5.equals(b4) && b5.equals(b6)) {
-                mudaBgVencedor(jBtn4, jBtn5, jBtn6);
-
-                JOptionPane.showMessageDialog(this, "Jogador "+b4+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
-
-                (b5.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
-                actualizarEstatisticas();
-                resetTabuleiro();
-            }
-
-            if (b5.equals(b2) && b5.equals(b8)) {
-                mudaBgVencedor(jBtn2, jBtn5, jBtn8);
-                JOptionPane.showMessageDialog(this, "Jogador "+b2+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
-                (b5.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
-                actualizarEstatisticas();
-                resetTabuleiro();
-            }
-
-            if (b5.equals(b3) && b5.equals(b7)) {
-                mudaBgVencedor(jBtn3, jBtn5, jBtn7);
-                JOptionPane.showMessageDialog(this, "Jogador "+b3+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
-                (b5.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
-                actualizarEstatisticas();
-                resetTabuleiro();
-            }           
-        }
-        
-        if (!b7.isEmpty()) {
-            if (b7.equals(b8) && b8.equals(b9)) {
-               mudaBgVencedor(jBtn7, jBtn8, jBtn9);
-               JOptionPane.showMessageDialog(this, "Jogador "+b7+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
-               (b7.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
-               actualizarEstatisticas();
-               resetTabuleiro();
-            }
-        }
-        
-        if (!b3.isEmpty()) {
-            if (b3.equals(b6) && b6.equals(b9)) {
-                mudaBgVencedor(jBtn3, jBtn6, jBtn9);
-                JOptionPane.showMessageDialog(this, "Jogador "+b3+" Ganhou!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
-                (b3.equalsIgnoreCase("X") ? jogadorX : jogadorO).addVitoria(); 
-                actualizarEstatisticas();
-                resetTabuleiro();
-            }
-        }
     }
+
     /*
     private void winGame()
     {
@@ -487,6 +505,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jLabelNomeJogO = new javax.swing.JLabel();
         jContainerTitulo = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jContainerMenu = new javax.swing.JPanel();
         jBtnSair = new javax.swing.JButton();
         jBtnNovo = new javax.swing.JButton();
@@ -670,6 +689,8 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
         jLabelTitulo.setText("Jogo do Galo");
 
+        jLabel1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jContainerTituloLayout = new javax.swing.GroupLayout(jContainerTitulo);
         jContainerTitulo.setLayout(jContainerTituloLayout);
         jContainerTituloLayout.setHorizontalGroup(
@@ -678,13 +699,19 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
                 .addGap(216, 216, 216)
                 .addComponent(jLabelTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jContainerTituloLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(255, 255, 255))
         );
         jContainerTituloLayout.setVerticalGroup(
             jContainerTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jContainerTituloLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabelTitulo)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jContainerMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -753,6 +780,11 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mostrarJogadorAtual() {
+        JOptionPane.showMessageDialog(this, "Vez do jogador " + jogadorAtual + " jogar", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    
     private void jBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn1ActionPerformed
         jBtn1.setText(jogadorAtual);
         //jBtn1.setBackground(Color.red);
@@ -884,7 +916,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JogoGaloTabuleiro("", "").setVisible(true);
+                new JogoGaloTabuleiro("", "", "").setVisible(true);
             }
         });
     }
@@ -905,6 +937,7 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
     private javax.swing.JPanel jContainerEstatisticas;
     private javax.swing.JPanel jContainerMenu;
     private javax.swing.JPanel jContainerTitulo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelNomeJogO;
     private javax.swing.JLabel jLabelNomeJogX;
     private javax.swing.JLabel jLabelNumEmp;

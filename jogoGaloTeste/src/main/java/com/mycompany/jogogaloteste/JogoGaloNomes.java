@@ -35,6 +35,8 @@ public class JogoGaloNomes extends javax.swing.JFrame {
         jJogadorO = new javax.swing.JTextField();
         jJogadorX = new javax.swing.JTextField();
         jBtnContinuar = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(10, 30, 30));
@@ -68,6 +70,11 @@ public class JogoGaloNomes extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "X", "0" }));
+
+        jLabel1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel1.setText("Primeira jogada:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,24 +94,36 @@ public class JogoGaloNomes extends javax.swing.JFrame {
                 .addGap(110, 110, 110)
                 .addComponent(jLabelTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(109, 109, 109))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabelTitulo)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelJX)
                     .addComponent(jJogadorX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelJO)
                     .addComponent(jJogadorO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(jBtnContinuar)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
+
+        jComboBox1.getAccessibleContext().setAccessibleName("jComboBoxPrimeiroJogador");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -112,6 +131,8 @@ public class JogoGaloNomes extends javax.swing.JFrame {
     private void jBtnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnContinuarActionPerformed
         String nome1= jJogadorX.getText();
         String nome2 = jJogadorO.getText();
+        String primeiroJogador = jComboBox1.getSelectedItem().toString();
+
         
         // Validação do campo nome
         if(nome1.isEmpty() || nome2.isEmpty()) {
@@ -120,7 +141,7 @@ public class JogoGaloNomes extends javax.swing.JFrame {
         }
         
         // Os dois nomes foram introduzidos, logo avança para próximo form
-        JogoGaloTabuleiro tabuleiro = new JogoGaloTabuleiro(nome1, nome2);
+        JogoGaloTabuleiro tabuleiro = new JogoGaloTabuleiro(nome1, nome2, primeiroJogador);
         tabuleiro.setVisible(true);
         dispose(); // Fecha o form anterior de maneira a haver só um form aberto
     }//GEN-LAST:event_jBtnContinuarActionPerformed
@@ -170,8 +191,10 @@ public class JogoGaloNomes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnContinuar;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JTextField jJogadorO;
     private javax.swing.JTextField jJogadorX;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelJO;
     private javax.swing.JLabel jLabelJX;
     private javax.swing.JLabel jLabelTitulo;
