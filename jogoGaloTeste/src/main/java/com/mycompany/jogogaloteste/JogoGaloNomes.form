@@ -132,10 +132,10 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
             <StringItem index="0" value="X"/>
-            <StringItem index="1" value="0"/>
+            <StringItem index="1" value="O"/>
           </StringArray>
         </Property>
-        <Property name="name" type="java.lang.String" value="jComboBox"/>
+        <Property name="name" type="java.lang.String" value="jComboBox" noResource="true"/>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jComboBoxPrimeiroJogador"/>

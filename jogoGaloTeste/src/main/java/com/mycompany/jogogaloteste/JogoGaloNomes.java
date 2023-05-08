@@ -70,7 +70,8 @@ public class JogoGaloNomes extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "X", "0" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "X", "O" }));
+        jComboBox1.setName("jComboBox"); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel1.setText("Primeira jogada:");
