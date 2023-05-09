@@ -164,13 +164,6 @@ public class JogoGaloTabuleiro extends javax.swing.JFrame {
         /**
          * Se não houver mais jogadas disponiveis, o jogo acaba em empate
          */
-        //        if (numJogadas >= 9) {
-        //            JOptionPane.showMessageDialog(this, "Jogadores Empataram!", "Jogo do Galo", JOptionPane.INFORMATION_MESSAGE);
-        //            numEmpates++;
-        //            actualizarEstatisticas();
-        //            resetTabuleiro();
-        //            return;
-        //        }
 
         if (!b1.isEmpty()) {
             if (b1.equals(b2) && b2.equals(b3)) {
